@@ -1,0 +1,28 @@
+[system prompt]Return ONLY valid JSON (no prose, no fences) with this schema:
+
+{
+  "expression_id": "string",
+  "groups": [
+    {
+      "group_id": "string",
+      "selected_ids": ["SID", ...],
+      "label_names": ["Skill name", ...]
+    }
+  ],
+  "final_decision": {
+    "selected_ids": ["SID", ...],
+    "labels": ["Skill name", ...],
+    "spans": [
+      {
+        "skill_id": "SID",
+        "label": "Skill name",
+        "skill_type": "Explicit" | "Implied" | "Both",
+        "span_text": "short quote from the expression",
+        "start_token": 0,
+        "end_token": 0
+      },
+      ...
+    ],
+    "rationale": "short explanation of why these final skills were chosen"
+  }
+}

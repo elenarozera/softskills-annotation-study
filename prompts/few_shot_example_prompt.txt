@@ -1,0 +1,49 @@
+[prompt] expr_id=1
+You are a classifier assigning the represented soft skills to a CV expression.
+For the given expression, independently evaluate each group of soft skills.
+Independence: do not use or rely on any other group's decision.
+If none apply in a group, use an empty list [] for labels.
+The final_decision.labels are a subset of all group labels. Decide on a final list of the most pertinent soft skills. Prefer precision: keep fewer, more relevant skills.
+For every final_decision.labels skill, extract:
+- a short supporting span from the expression (span_text),
+- start_token and end_token of the skill span: indices in the whitespace-split token list of the full expression (0-based, end inclusive).
+- its skill_type: one of Explicit, Implied, Both,
+Return ONLY valid JSON matching the required schema. No extra text.
+
+EXPRESSION_ID: "1"
+JOB: "Accountant"
+EXPRESSION:
+Current college student majoring in business administration with an emphasis in accounting graduating next May 2010. My greatest strengths are being able to analyze large amounts of data, being detail-oriented, very skilled with Microsoft Excel giving me the capability to produce complex financial statements and one who works well under pressure.
+
+GROUP_SPECS:
+  Group G1:
+  Skill_id: Skill_name - Skill_definiion; Skill_id: Skill_name - Skill_definiion; Skill_id: Skill_name - Skill_definiion
+  Group G2:
+  Skill_id: Skill_name - Skill_definiion; Skill_id: Skill_name - Skill_definiion; Skill_id: Skill_name - Skill_definiion
+  Group G3:
+  Skill_id: Skill_name - Skill_definiion; Skill_id: Skill_name - Skill_definiion; Skill_id: Skill_name - Skill_definiion
+  Group G4:
+  Skill_id: Skill_name - Skill_definiion; Skill_id: Skill_name - Skill_definiion; Skill_id: Skill_name - Skill_definiion
+  Group G5:
+  Skill_id: Skill_name - Skill_definiion; Skill_id: Skill_name - Skill_definiion; Skill_id: Skill_name - Skill_definiion
+  Group G6:
+  Skill_id: Skill_name - Skill_definiion; Skill_id: Skill_name - Skill_definiion; Skill_id: Skill_name - Skill_definiion
+  Group G7:
+  Skill_id: Skill_name - Skill_definiion; Skill_id: Skill_name - Skill_definiion; Skill_id: Skill_name - Skill_definiion
+  Group G8:
+  Skill_id: Skill_name - Skill_definiion; Skill_id: Skill_name - Skill_definiion; Skill_id: Skill_name - Skill_definiion
+  Group G9:
+  Skill_id: Skill_name - Skill_definiion; Skill_id: Skill_name - Skill_definiion; Skill_id: Skill_name - Skill_definiion
+  Group G10:
+  Skill_id: Skill_name - Skill_definiion; Skill_id: Skill_name - Skill_definiion; Skill_id: Skill_name - Skill_definiion
+
+Here is an example you can follow: Examples (same job):
+
+Expression:
+"""Experienced Accountant with nine years record in billing and collections combined with solid understanding of legal procedures and legislation. Proficient with wide variety of software applications, including QuickBooks, Odoo and custom accounting software.',"""
+Soft skills (human-labeled): Quality orientation, analitical thinking, knowledge management, learning agility
+Why: "Experienced accountant" : analitical thinking, quality orientation
+"variety of softwar applications" : knowledge management and learning agility
+
+.
+REQUIRED_JSON_KEYS: expression_id, groups[10]{group_id,selected_ids,label_names,spans[{skill_id,label,skill_type,span_text,start_token,end_token}]}, final_decision{selected_ids,labels,rationale,spans[{skill_id,label,skill_type,span_text,start_token,end_token}]}
